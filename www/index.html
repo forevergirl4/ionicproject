@@ -46,12 +46,35 @@
       </ion-content>
       <ion-tabs class="tabs tabs-icon-top">
         <ion-tab icon="ion-home" title="Home"></ion-tab>
-        <ion-tab icon="ion-person" title="Home"></ion-tab>
-        <ion-tab icon="ion-calendar" title="Home"></ion-tab>
+        <ion-tab icon="ion-person" title="Artists"></ion-tab>
+        <ion-tab icon="ion-calendar" title="Calendar"></ion-tab>
       </ion-tabs>
       <!-- <ion-footer-bar class="bar-positive">
         <h1 class="title">Footer</h1>
       </ion-footer-bar> -->
+    </ion-pane>
+    <ion-pane>
+      <ion-header-bar class="bar-dark">
+        <h2 class="title">Artist List</h2>
+      </ion-header-bar>
+
+      <div class="bar bar-subheader item-input-inset bar-light">
+        <label class="item-input-wrapper">
+          <i class="icon ion-search placeholder-icon"></i>
+          <input type="search" placeholder="Search">
+        </label>
+      </div>
+
+      <ion-content class="has-subheader">
+        <ion-list>
+          <ion-item class="item-thumbnail-left item-text-wrap">
+            <img src="http://placeholder.it/100x100" alt="Photo">
+            <h2>Name</h2>
+            <h3>Reknown</h3>
+            <p>lorem ipsum dito</p>
+          </ion-item>
+        </ion-list>
+      </ion-content>
     </ion-pane>
   </body>
 </html>
