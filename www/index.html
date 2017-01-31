@@ -46,7 +46,7 @@
       </ion-content>
       <ion-tabs class="tabs tabs-icon-top">
         <ion-tab icon="ion-home" title="Home"></ion-tab>
-        <ion-tab icon="ion-person" title="Artists"></ion-tab>
+        <ion-tab icon="ion-ios-people" title="Artists"></ion-tab>
         <ion-tab icon="ion-calendar" title="Calendar"></ion-tab>
       </ion-tabs>
       <!-- <ion-footer-bar class="bar-positive">
@@ -70,11 +70,15 @@
 
       <ion-content class="has-subheader">
         <ion-list show-delete="data.showDelete" show-reorder="data.showReorder">
-          <ion-item class="item-thumbnail-left item-text-wrap" ng-repeat='item in artists | filter:query'>
-            <img src="img/{{item.shortname}}_tn.jpg" alt="{{item.name}} Photo">
+          <ion-item ng-class="{'star':item.star}" class="item-thumbnail-left item-text-wrap item-icon-right" ng-repeat='item in artists | filter:query'>
+            <img ng-src="img/{{item.shortname}}_tn.jpg" alt="{{item.name}} Photo">
             <h2>{{item.name}}</h2>
             <h3>{{item.reknown}}</h3>
             <p>{{item.bio | limitTo:100}}{{item.bio.length>150?'&hellip;' : ''}}</p>
+            <button class="button button-clear icon ion-star button-assertive" ng-click="toggleStar(item)" ng-show="item.star"></button>
+            <ion-option-button class="button-dark" ng-click="toggleStar(item)">
+              <i class="icon ion-star"></i>
+            </ion-option-button>
             <ion-delete-button class="ion-minus-circled" ng-click="onItemDelete(item)">             
             </ion-delete-button>
             <ion-reorder-button class="ion-navicon" on-reorder="moveItem(item, $fromIndex, $toIndex)">              
