@@ -4,7 +4,6 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 angular.module('starter', ['ionic'])
-
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     if(window.cordova && window.cordova.plugins.Keyboard) {
@@ -55,13 +54,22 @@ angular.module('starter', ['ionic'])
         }
       }
     })
+    .state('tabs.calendar', {
+      url: '/calendar',
+      views: {
+        'calendar-tab': {
+          templateUrl : 'templates/calendar.html',
+          controller: 'CalendarController'
+        }
+      }
+    })
     $urlRouterProvider.otherwise('tab/home');
 })
 .controller('ListController', ['$scope', '$http', '$state', function($scope, $http, $state){
   $http.get('js/data.json').success(function(data){
     $scope.artists = data.artists;
     $scope.whichartist = $state.params.aId;
-    $scope.data =   {showDelete: false; showReorder: false};
+    $scope.data = { showDelete: false, showReorder: false };
 
     $scope.doRefresh = function(){
       $http.get('js/data.json').success(function(data){
@@ -80,5 +88,27 @@ angular.module('starter', ['ionic'])
       $scope.artists.splice(fromIndex, 1);
       $scope.artists.splice(toIndex, 0, item)
     }
-  });
+  })
+}]).controller('CalendarController', ['$scope', '$http', '$state', function($scope, $http, $state){
+  $http.get('js/data.json').success(function(data){
+    $scope.calendar = data.calendar;
+
+    $scope.doRefresh = function(){
+      $http.get('js/data.json').success(function(data){
+        $scope.calendar = data.calendar;
+        $scope.$broadcast('scroll.refreshComplete');
+      })
+    }
+    $scope.onItemDelete = function(item){
+      $scope.calendar.splice($scope.calendar.indexOf(item), 1);
+    };
+
+    $scope.toggleStar = function(item){
+      item.star = !item.star;
+    }
+    $scope.moveItem = function(item, fromIndex, toIndex){
+      $scope.calendar.splice(fromIndex, 1);
+      $scope.calendar.splice(toIndex, 0, item)
+    }
+  })
 }]);
