@@ -89,26 +89,25 @@ angular.module('starter', ['ionic'])
       $scope.artists.splice(toIndex, 0, item)
     }
   })
-}]).controller('CalendarController', ['$scope', '$http', '$state', function($scope, $http, $state){
-  $http.get('js/data.json').success(function(data){
-    $scope.calendar = data.calendar;
+}]).controller('CalendarController', ['$scope', '$http', '$state',
+    function($scope, $http, $state) {
+    $http.get('js/data.json').success(function(data) {
+      $scope.calendar = data.calendar;
 
-    $scope.doRefresh = function(){
-      $http.get('js/data.json').success(function(data){
-        $scope.calendar = data.calendar;
-        $scope.$broadcast('scroll.refreshComplete');
-      })
-    }
-    $scope.onItemDelete = function(item){
-      $scope.calendar.splice($scope.calendar.indexOf(item), 1);
-    };
+      $scope.onItemDelete = function(dayIndex, item) {
+        $scope.calendar[dayIndex].schedule.splice($scope.calendar[dayIndex].schedule.indexOf(item), 1);
+      }
 
-    $scope.toggleStar = function(item){
-      item.star = !item.star;
-    }
-    $scope.moveItem = function(item, fromIndex, toIndex){
-      $scope.calendar.splice(fromIndex, 1);
-      $scope.calendar.splice(toIndex, 0, item)
-    }
-  })
+      $scope.doRefresh =function() {
+      $http.get('js/data.json').success(function(data) {
+          $scope.calendar = data.calendar;
+          $scope.$broadcast('scroll.refreshComplete');
+        });
+      }
+
+      $scope.toggleStar = function(item) {
+        item.star = !item.star;
+      }
+
+    });
 }]);
